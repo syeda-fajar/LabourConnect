@@ -52,30 +52,6 @@ async def workerProfileCreate(
 
 
 
-@router.patch("/", response_model=WorkerSearchOut, status_code=status.HTTP_200_OK)
-async def workerProfileUpdate(
-    worker_data: workerUpadte, 
-    db: Session = Depends(get_db),
-    currentUser: dict = Depends(get_worker_role)
-):
-   
-    profile = db.query(Worker_profile).filter(Worker_profile.user_id == currentUser["id"]).first()
-    if  not profile:
-        raise HTTPException(status_code=404, detail="profile dont  exists.")
-    if worker_data.hourly_rate is not None:
-        profile.hourly_rate = worker_data.hourly_rate
-    if worker_data.is_available is not None:
-         profile.is_available = worker_data.is_available
-         if worker_data.is_available == True:
-              profile.last_available_at = datetime.now()
-              logger.info(f"Worker {profile.id} is now online. Timer reset.")
-
-    db.commit()
-    db.refresh(profile)
-
-    return profile
-
-
 @router.get("/", response_model=PaginatedWorkerResponse)
 async def get_workers(
     db: Session = Depends(get_db),
@@ -85,12 +61,11 @@ async def get_workers(
     skill: Optional[str] = None,
     available_only: bool = False
 ):
-    
     skill_key = skill.strip().lower() if skill else "all"
     location_key = location.strip().lower() if location else "all"
     cache_key = f"search:{skill_key}:{location_key}:{page}:{size}:{available_only}"
 
-   
+  
     if redis_client:
         try:
             cached_result = redis_client.get(cache_key)
@@ -102,7 +77,7 @@ async def get_workers(
 
     logger.info(f"CACHE MISS: Fetching from PostgreSQL for key {cache_key}")
 
-    
+   
     query = db.query(Worker_profile).options(joinedload(Worker_profile.user))
     
     if skill:
@@ -120,20 +95,22 @@ async def get_workers(
     skip = (page - 1) * size
     workers = query.offset(skip).limit(size).all()
     
-    response_data = {
+    raw_response = {
         "total": total,
         "page": page,
         "size": size,
         "data": workers
     }
 
-   
+    
+    serializable_response = jsonable_encoder(raw_response)
+
+  
     if redis_client:
         try:
-            serializable_response = jsonable_encoder(response_data)
             redis_client.setex(cache_key, 300, json.dumps(serializable_response))
             logger.info(f"CACHE POPULATED: Key {cache_key} stored for 5 minutes.")
         except Exception as e:
             logger.error(f"Failed to save data to Redis: {e}")
 
-    return response_data
+    return serializable_response
