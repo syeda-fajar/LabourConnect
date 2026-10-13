@@ -60,7 +60,7 @@ async def JobBooking(
     if worker_exist.hourly_rate is None or worker_exist.hourly_rate <= 0:
         raise LabourConnectException(
             status_code=400,
-            message="This worker has not set a valid hourly rate yet. Booking cannot proceed.",
+            message="This worker has not set a valxid hourly rate yet. Booking cannot proceed.",
             error_code="RateNotSet"
         )
 
@@ -105,7 +105,7 @@ async def JobStatus(
     requested = status_update.status.lower()
 
     if currentUser["role"] == "worker":
-        worker_profile = db.query(Worker_profile).filter(Worker_profile.user_id == currentUser["id"]).first()
+        worker_profile = db.query(Worker_profile).filter(Worker_profile.user_id == currentUser["id"]).with_for_update().first()
         
         if not worker_profile:
              raise LabourConnectException(
@@ -120,6 +120,12 @@ async def JobStatus(
                 message="You are not authorized to manage this specific job.",
                 error_code="AccessDenied"
             )
+        if requested == "accepted" and not worker_profile.is_available:
+            raise LabourConnectException(
+            status_code=400,
+            message="You are currently busy with another active job and cannot accept new ones.",
+            error_code="WorkerAlreadyBusy"
+        )
 
         is_valid_transition = (current == "pending" and requested in ["accepted", "rejected"]) or \
                               (current == "accepted" and requested == "in_progress")
@@ -231,7 +237,7 @@ async def CreateRating(
         
     except IntegrityError:
         db.rollback() 
-        raise LabourConnectException(400, "You have already rated this job.", "DuplicateRating")
+        raise LabourConnectException(409, "You have already rated this job.", "DuplicateRating")
 
     db.refresh(new_rating)
     return {"message": "Rating submitted successfully", "new_average": worker_to_rate.average_rating}

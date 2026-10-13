@@ -2746,3 +2746,32 @@ NameError: name 'or_' is not defined. Did you mean: 'ord'?
 2026-05-20 11:03:50,656 - INFO - Scheduler started
 2026-05-20 11:03:50,659 - INFO - Running job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-05-20 11:03:50 UTC)" (scheduled at 2026-05-20 11:03:50.650737+00:00)
 2026-05-20 11:03:50,677 - INFO - Job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-05-20 13:03:50 UTC)" executed successfully
+2026-06-05 03:48:17,360 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-05 03:48:17,374 - INFO - Added job "expire_inactive_workers" to job store "default"
+2026-06-05 03:48:17,375 - INFO - Scheduler started
+2026-06-05 03:48:17,378 - INFO - Running job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-06-05 03:48:17 UTC)" (scheduled at 2026-06-05 03:48:17.356420+00:00)
+2026-06-05 03:48:17,454 - INFO - Job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-06-05 05:48:17 UTC)" executed successfully
+2026-06-05 04:27:34,876 - INFO - Scheduler has been shut down
+2026-06-05 04:27:38,806 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-05 04:27:38,810 - INFO - Added job "expire_inactive_workers" to job store "default"
+2026-06-05 04:27:38,810 - INFO - Scheduler started
+2026-06-05 04:27:38,816 - INFO - Running job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-06-05 04:27:38 UTC)" (scheduled at 2026-06-05 04:27:38.799050+00:00)
+2026-06-05 04:27:38,865 - INFO - Job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-06-05 06:27:38 UTC)" executed successfully
+2026-06-05 04:27:39,323 - INFO - Scheduler has been shut down
+2026-06-05 04:27:41,639 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-05 04:27:41,643 - INFO - Added job "expire_inactive_workers" to job store "default"
+2026-06-05 04:27:41,644 - INFO - Scheduler started
+2026-06-05 04:27:41,649 - INFO - Running job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-06-05 04:27:41 UTC)" (scheduled at 2026-06-05 04:27:41.638086+00:00)
+2026-06-05 04:27:41,695 - INFO - Job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-06-05 06:27:41 UTC)" executed successfully
+2026-06-05 04:31:04,087 - INFO - Scheduler has been shut down
+2026-06-05 04:31:11,773 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-05 04:31:11,775 - INFO - Added job "expire_inactive_workers" to job store "default"
+2026-06-05 04:31:11,776 - INFO - Scheduler started
+2026-06-05 04:31:11,779 - INFO - Running job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-06-05 04:31:11 UTC)" (scheduled at 2026-06-05 04:31:11.772379+00:00)
+2026-06-05 04:31:11,798 - INFO - Job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-06-05 06:31:11 UTC)" executed successfully
+2026-06-05 04:33:19,205 - INFO - Scheduler has been shut down
+2026-06-05 04:33:21,278 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-05 04:33:21,281 - INFO - Added job "expire_inactive_workers" to job store "default"
+2026-06-05 04:33:21,282 - INFO - Scheduler started
+2026-06-05 04:33:21,285 - INFO - Running job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-06-05 04:33:21 UTC)" (scheduled at 2026-06-05 04:33:21.277290+00:00)
+2026-06-05 04:33:21,343 - INFO - Job "expire_inactive_workers (trigger: interval[2:00:00], next run at: 2026-06-05 06:33:21 UTC)" executed successfully

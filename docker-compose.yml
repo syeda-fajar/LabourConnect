@@ -28,7 +28,7 @@ services:
       db:
         condition: service_healthy
       redis_cache:
-        condition: service_started  # Ensures Redis starts up along with your API
+        condition: service_started  
     environment:
       - PORT=8000
     env_file:
